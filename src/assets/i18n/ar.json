@@ -1,0 +1,15 @@
+{
+    "APP_TITLE":"طلبات الدعم",
+    "Id": "رقم الطلب",
+    "Title": "العنوان",
+    "Priority": "الاولوية",
+    "Category": "التصنيف",
+    "SubCategory": "التصنيف الفرعي",
+    "TicketType": "نوع الطلب",
+    "TicketStatus": "الحالة",
+    "Search": "بحث",
+    "Apply Filter": "بحث",
+    "TicketPriority": "الاولوية",
+    "TicketCategory": "التصنيف",
+    "Select": "اختر"
+}

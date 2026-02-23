@@ -1,0 +1,71 @@
+<div class="container vh-100 d-flex align-items-center justify-content-center">
+  <div class="row w-100">
+    <div class="col-md-6 col-lg-4 mx-auto">
+      <div class="card shadow">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <h2 class="card-title">{{ 'LOGIN' | translate }}</h2>
+            <p class="text-muted">{{ 'WELCOME' | translate }}</p>
+          </div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="username" class="form-label">{{ 'USERNAME' | translate }}</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="username" 
+                formControlName="username"
+                [class.is-invalid]="submitted && f['username'].errors"
+                placeholder="{{ 'USERNAME' | translate }}"
+              >
+              <div class="invalid-feedback" *ngIf="submitted && f['username'].errors?.['required']">
+                {{ 'USERNAME' | translate }} {{ 'IS_REQUIRED' | translate }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">{{ 'PASSWORD' | translate }}</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="password" 
+                formControlName="password"
+                [class.is-invalid]="submitted && f['password'].errors"
+                placeholder="{{ 'PASSWORD' | translate }}"
+              >
+              <div class="invalid-feedback" *ngIf="submitted && f['password'].errors?.['required']">
+                {{ 'PASSWORD' | translate }} {{ 'IS_REQUIRED' | translate }}
+              </div>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="rememberMe" formControlName="rememberMe">
+              <label class="form-check-label" for="rememberMe">
+                {{ 'REMEMBER_ME' | translate }}
+              </label>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                {{ 'LOGIN' | translate }}
+              </button>
+            </div>
+
+            <div class="text-center mt-3">
+              <a href="#" class="text-decoration-none">{{ 'FORGOT_PASSWORD' | translate }}</a>
+            </div>
+          </form>
+
+          <div class="text-center mt-4">
+            <p class="mb-0">
+              {{ 'DONT_HAVE_ACCOUNT' | translate }} 
+              <a href="#" routerLink="/register" class="text-decoration-none">{{ 'REGISTER' | translate }}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

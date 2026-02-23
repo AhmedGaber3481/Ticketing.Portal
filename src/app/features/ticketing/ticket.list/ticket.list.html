@@ -1,0 +1,121 @@
+<div class="container container-fluid">
+    <div class="col-md-12 mx-auto mt-5">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="filterForm" class="row g-3 mb-3">
+                <div class="col-md-2">
+                    <label for="ticketType" class="form-label">{{ 'TicketType' | translate }}</label>
+                    <select id="ticketType" class="form-select" formControlName="ticketType">
+                        <option value="">{{ 'Select' | translate }}</option>
+                        <option *ngFor="let item of ticketTypes" [value]="item.code">{{ item.name }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="ticketStatus" class="form-label">{{ 'TicketStatus' | translate }}</label>
+                    <select id="ticketStatus" class="form-select" formControlName="ticketStatus">
+                        <option value="">{{ 'Select' | translate }}</option>
+                        <option *ngFor="let item of ticketStatuses" [value]="item.code">{{ item.name }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="ticketPriority" class="form-label">{{ 'TicketPriority' | translate }}</label>
+                    <select id="ticketPriority" class="form-select" formControlName="ticketPriority">
+                        <option value="">{{ 'Select' | translate }}</option>
+                        <option *ngFor="let item of ticketPriorities" [value]="item.code">{{ item.name }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="ticketCategory" class="form-label">{{ 'TicketCategory' | translate }}</label>
+                    <select id="ticketCategory" class="form-select" formControlName="ticketCategory">
+                        <option value="">{{ 'Select' | translate }}</option>
+                        <option *ngFor="let item of ticketCategories" [value]="item.code">{{ item.name }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="search" class="form-label">{{ 'Search' | translate }}</label>
+                    <input type="text" id="search" class="form-control" formControlName="search" placeholder="{{ 'Search' | translate }}">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="button" class="btn btn-primary" (click)="applyFilter()">{{ 'Apply Filter' | translate }}</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="ticketList_info">
+                <thead>
+                <tr>
+                    <th>
+                    <span style="display:flex;align-items:center;gap:8px;">
+                       <span>{{ 'Id' | translate }}</span>
+                        <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('id')">
+                            <span class="sort-icon">{{ getSortSymbol('id') }}</span>
+                        </button>
+                        </span>
+                    </th>
+                    <th>
+                        <span style="display:flex;align-items:center;gap:8px;">
+                            <span>{{ 'Title' | translate }}</span>
+                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('title')">
+                                <span class="sort-icon">{{ getSortSymbol('title') }}</span>
+                            </button>
+                        </span>
+                    </th>
+                    <th>
+                        <span style="display:flex;align-items:center;gap:8px;">
+                            <span><span>{{ 'TicketStatus' | translate }}</span></span>
+                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('status')">
+                                <span class="sort-icon">{{ getSortSymbol('status') }}</span>
+                            </button>
+                        </span>
+                    </th>
+                    <th>
+                        <span style="display:flex;align-items:center;gap:8px;">
+                            <span><span>{{ 'Priority' | translate }}</span></span>
+                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('priority')">
+                                <span class="sort-icon">{{ getSortSymbol('priority') }}</span>
+                            </button>
+                        </span>
+                    </th>
+                    <th>
+                        <span style="display:flex;align-items:center;gap:8px;">
+                            <span><span>{{ 'Category' | translate }}</span></span>
+                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('category')">
+                                <span class="sort-icon">{{ getSortSymbol('category') }}</span>
+                            </button>
+                        </span>
+                    </th>
+                    <th>
+                        <span style="display:flex;align-items:center;gap:8px;">
+                            <span><span>{{ 'TicketType' | translate }}</span></span>
+                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('type')">
+                                <span class="sort-icon">{{ getSortSymbol('type') }}</span>
+                            </button>
+                        </span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of dataSource(); let i = index" [ngClass]="{ 'odd': i % 2 !== 0, 'even': i % 2 === 0 }">
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.title }}</td>
+                        <td>{{ row.status }}</td>
+                        <td>{{ row.priority }}</td>
+                        <td>{{ row.ticketCategory}}</td>
+                        <td>{{ row.ticketType }}</td>                      
+                    </tr>
+            </tbody>  
+            </table>
+        </div>
+        <div class="card-footer">
+            <app-grid
+                (pageLoadEvent)="loadTickets($event)"
+                [pageSize]="pageSize"
+                [totalRows]="totalRows()"
+                [countPages]="countPages()">
+            </app-grid>
+        </div>
+    </div>
+    </div>
+</div>
+
+

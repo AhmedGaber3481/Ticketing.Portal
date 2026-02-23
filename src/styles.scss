@@ -1,0 +1,299 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "assets/styles/dataTables.bootstrap4.min.css";
+
+// RTL/LTR Direction Support
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+}
+
+// RTL specific styles
+body.rtl {
+  // Bootstrap RTL overrides
+  .navbar-nav {
+    padding-right: 0;
+    padding-left: auto;
+  }
+  
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+    text-align: right;
+  }
+  
+  .dropdown-menu-end {
+    right: auto;
+    left: 0;
+  }
+  
+  .ms-auto {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+  }
+  
+  .me-auto {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+  
+  .me-1, .me-2, .me-3 {
+    margin-left: 0.25rem !important;
+    margin-right: 0 !important;
+  }
+  
+  .ms-1, .ms-2, .ms-3 {
+    margin-right: 0.25rem !important;
+    margin-left: 0 !important;
+  }
+  
+  // Table RTL
+  .table {
+    text-align: right;
+    
+    th, td {
+      text-align: right;
+    }
+  }
+  
+  // Form RTL
+  .form-control {
+    text-align: right;
+  }
+  
+  // Card RTL
+  .card {
+    text-align: right;
+  }
+  
+  // Button RTL
+  .btn {
+    .bi {
+      margin-left: 0.5rem;
+      margin-right: 0;
+    }
+  }
+  
+  // Navigation RTL
+  .nav-link {
+    i {
+      margin-left: 0.5rem;
+      margin-right: 0;
+    }
+  }
+}
+
+// AdminLTE-inspired global styles
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  
+  --sidebar-width: 250px;
+  --header-height: 57px;
+  --footer-height: 80px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #f4f6f9;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Main content wrapper
+.content-wrapper {
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  margin-top: var(--header-height);
+  // padding: 1rem;
+  background-color: #f4f6f9;
+}
+
+// Card styling (AdminLTE-like)
+.card {
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  
+  .card-header {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    
+    &.bg-primary {
+      background-color: var(--primary-color) !important;
+      color: #fff;
+    }
+    
+    &.bg-success {
+      background-color: var(--success-color) !important;
+      color: #fff;
+    }
+    
+    &.bg-warning {
+      background-color: var(--warning-color) !important;
+      color: #1f2d3d;
+    }
+    
+    &.bg-danger {
+      background-color: var(--danger-color) !important;
+      color: #fff;
+    }
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+}
+
+// Button enhancements
+.btn {
+  border-radius: 0.25rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  &.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    
+    &:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  }
+}
+
+// Form controls
+.form-control {
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  
+  &:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+}
+
+// Table styling
+.table {
+  background-color: #fff;
+  
+  thead th {
+    border-top: none;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    background-color: #f8f9fa;
+  }
+  
+  tbody tr {
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: #f8f9fa;
+    }
+  }
+}
+
+// Alert styling
+.alert {
+  border-radius: 0.25rem;
+  border: none;
+  
+  &.alert-primary {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+  }
+  
+  &.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+  }
+  
+  &.alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeaa7;
+    color: #856404;
+  }
+  
+  &.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+  }
+}
+
+// Utility classes
+.text-bold {
+  font-weight: 600;
+}
+
+.elevation-1 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.elevation-2 {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.elevation-3 {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  body {
+    font-size: 0.85rem;
+  }
+  
+  .content-wrapper {
+    padding: 0.5rem;
+  }
+  
+  .card {
+    margin-bottom: 0.75rem;
+    
+    .card-header {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+    }
+    
+    .card-body {
+      padding: 0.75rem;
+    }
+  }
+}

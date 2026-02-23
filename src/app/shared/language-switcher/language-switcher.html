@@ -1,0 +1,13 @@
+<div class="dropdown">
+  <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-globe"></i> {{ getCurrentLanguageNativeName() }}
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li *ngFor="let lang of getAvailableLanguages()">
+      <button class="dropdown-item" (click)="changeLanguage(lang.code)" 
+         [class.active]="currentLanguage === lang.code">
+        {{ lang.nativeName }}
+      </button>
+    </li>
+  </ul>
+</div>

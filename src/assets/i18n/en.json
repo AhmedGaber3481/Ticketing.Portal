@@ -1,0 +1,15 @@
+{
+    "APP_TITLE":"Ticketing Portal",
+    "Id": "Ticket ID",
+    "Title": "Title",
+    "Priority": "Priority",
+    "Category": "Category",
+    "SubCategory": "Sub Category",
+    "TicketType": "Ticket Type",
+    "TicketStatus": "Status",
+    "Search": "Search",
+    "Apply Filter": "Apply Filter",
+    "TicketPriority": "Priority",
+    "TicketCategory": "Category",
+    "Select": "Select"
+}
