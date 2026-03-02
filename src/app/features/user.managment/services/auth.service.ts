@@ -37,7 +37,6 @@ export class AuthService{
     UserIsAuthenticated() : Observable<boolean>{
         return this.apiService.get<ApiResponse<LoggedUser>>("/api/account/GetLoggedUser", undefined, environment.BaseAuthApiURL)
         .pipe(map((res: any) => {
-
             this.authStatus.set(
                 !!res.data?.userId ? 'Authenticated' : 'NotAuthenticated'
             );

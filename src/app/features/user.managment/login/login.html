@@ -100,6 +100,10 @@
               {{ 'LOGIN_BUTTON' | translate }}
             </button>
 
+            @for(error of errorMessages; track $index){
+              <div class="invalid-feedback">{{ translationService.translate(error)}}</div>
+            }
+
             <!-- Sign Up Link -->
             <!-- <p class="text-center text-muted small mb-0">
               Don't have an account?{' '}

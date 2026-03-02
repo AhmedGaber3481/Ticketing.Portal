@@ -17,11 +17,12 @@ import { TranslationService } from '../../../shared/services/translation.service
 export class LoginFormComponent {
   form: FormGroup;
   showPassword = false;
+  errorMessages :string[] =[];
 
   constructor(private fb: FormBuilder 
   , private authService: AuthService
   , private route: Router
-  , private translationService: TranslationService)
+  , public translationService: TranslationService)
   {
     this.form = this.fb.group({
       username: ['', [Validators.required]],
@@ -48,7 +49,7 @@ export class LoginFormComponent {
       this.form.markAllAsTouched();
       return;
     }
-
+    this.errorMessages =[];
     var lang = this.translationService.language();
     console.log("current lang" , lang);
     this.authService.SignIn({UserName: this.form.value.username, Password: this.form.value.password}).subscribe({
@@ -62,7 +63,10 @@ export class LoginFormComponent {
         }
       },
       error: (error: any) => {
-        alert("Exception in login");
+        //console.log(error?.error?.notifications);
+        if(error.error && error.error.notifications){
+           this.errorMessages = error.error.notifications;
+        }
       }
     })
   }

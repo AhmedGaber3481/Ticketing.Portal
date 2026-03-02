@@ -20,5 +20,7 @@
     "LOGIN_NOTE":"Enter your credentials to continue",
     "ENTER_PASSWORD": "Enter your password",
     "ENTER_USERNAME": "Enter your username",
-    "SignOut": "Sign Out"
+    "SignOut": "Sign Out",
+    "Locked_User": "User is locked out.",
+    "Invalid_Credentials": "Invalid username or password."
 }

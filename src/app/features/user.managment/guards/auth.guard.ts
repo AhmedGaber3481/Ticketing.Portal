@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { CanActivateFn, MaybeAsync, Router, UrlTree } from '@angular/router';
 import { take, map, catchError, of } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { TranslationService } from "../../../shared/services/translation.service";
 
-export const authGuard = () => {
+export const authGuard : CanActivateFn = () : MaybeAsync<boolean | UrlTree>  => {
   //console.log("CanActivateFn start");
   const router = inject(Router);
   const authService = inject(AuthService);
