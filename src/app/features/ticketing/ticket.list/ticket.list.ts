@@ -8,6 +8,7 @@ import { TranslatePipe } from '../../../shared/services/translate.pipe';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { LookupService, LOOKUP_TYPES, LookupItem } from '../../../shared/services/lookup.service';
 import { ApiResponse } from '../../../shared/models/api.response';
+import { AuthService } from '../../user.managment/services/auth.service';
 
 @Component({
   selector: 'app-ticket.list',
@@ -39,11 +40,14 @@ export class TicketList implements OnInit {
   ticketCategories: LookupItem[] = [];
 
    constructor(private apiService: ApiService
-    , private router: Router, private lookupService: LookupService) {
+    , private router: Router
+    , private lookupService: LookupService
+    , private authService:  AuthService) {
       console.log('TicketList component initialized');
   }
 
   ngOnInit(){
+    console.log("user in ticketing list", this.authService.userSubject.value);
     this.loadLookups();
     this.loadTickets(1);
   }

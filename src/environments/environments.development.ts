@@ -1,3 +1,4 @@
 export const environment = {
-  BaseAPiUrl: "http://localhost:3637"
+  BaseAPiUrl: "https://localhost:44347",
+  BaseAuthApiURL: "https://localhost:44379"
 };

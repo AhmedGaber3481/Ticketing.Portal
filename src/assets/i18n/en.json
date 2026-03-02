@@ -11,5 +11,14 @@
     "Apply Filter": "Apply Filter",
     "TicketPriority": "Priority",
     "TicketCategory": "Category",
-    "Select": "Select"
+    "Select": "Select",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "LOGIN_BUTTON": "Login",
+    "USERNAME_REQUIRED": "Please enter your username",
+    "PASSWORD_REQUIRED": "Please enter your password",
+    "LOGIN_NOTE":"Enter your credentials to continue",
+    "ENTER_PASSWORD": "Enter your password",
+    "ENTER_USERNAME": "Enter your username",
+    "SignOut": "Sign Out"
 }

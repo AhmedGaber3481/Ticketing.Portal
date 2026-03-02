@@ -13,6 +13,7 @@ export class TranslationService {
     { code: 'en', nativeName: 'English', culture: 'en-US' },
     { code: 'ar', nativeName: 'Arabic', culture: 'ar-EG' }
   ];
+  IsLoaded = false;
 
   constructor(
     private http: HttpClient,
@@ -84,6 +85,7 @@ export class TranslationService {
       .get<Record<string, string>>(`assets/i18n/${lang}.json`)
       .subscribe(data => {
         this.translations = data;
+        this.IsLoaded = true;
       });
   }
 

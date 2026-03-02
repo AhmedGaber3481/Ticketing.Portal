@@ -1,0 +1,168 @@
+// Component-specific styles for Ticket Creation Form
+.card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease;
+  }
+}
+
+.form-control:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-primary {
+  &:hover:not(:disabled) {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+  }
+  
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  &:hover {
+    background-color: #5c636a;
+    border-color: #565e64;
+  }
+}
+
+.alert-success {
+  border-left: 4px solid #198754;
+}
+
+// Form validation styles
+.is-invalid {
+  border-color: #dc3545;
+  
+  &:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+  }
+}
+
+.invalid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  
+  &.d-block {
+    display: block;
+  }
+}
+
+// Row layout adjustments
+.row {
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
+  
+  > .col-md-6 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+// Button group styling
+.d-flex.gap-2 {
+  gap: 0.5rem;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .card {
+    max-width: 100% !important;
+    margin: 0 15px;
+  }
+  
+  .row {
+    > .col-md-6 {
+      margin-bottom: 1rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  .d-flex.gap-2 {
+    flex-direction: column;
+    
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 16px !important;
+  }
+  
+  .form-control,
+  .form-select {
+    font-size: 0.9rem;
+  }
+  
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+// Priority-based styling (optional enhancement)
+select.form-select {
+  &[value="critical"] {
+    font-weight: 600;
+    color: #dc3545;
+  }
+  
+  &[value="high"] {
+    font-weight: 500;
+    color: #fd7e14;
+  }
+  
+  &[value="medium"] {
+    color: #ffc107;
+  }
+  
+  &[value="low"] {
+    color: #198754;
+  }
+}
+
+// Status-based styling (optional enhancement)
+select.form-select[formcontrolname="status"] {
+  &[value="closed"] {
+    font-weight: 500;
+    color: #6c757d;
+  }
+  
+  &[value="on-hold"] {
+    color: #ffc107;
+  }
+  
+  &[value="in-progress"] {
+    color: #0dcaf0;
+  }
+  
+  &[value="open"] {
+    color: #198754;
+  }
+}

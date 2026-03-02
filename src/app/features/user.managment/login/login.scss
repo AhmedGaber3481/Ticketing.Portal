@@ -1,0 +1,58 @@
+/* Additional custom styles can be added here if needed */
+/* The component primarily uses Bootstrap classes */
+
+.container {
+  padding: 2rem 0;
+}
+
+.card {
+  border-radius: 0.75rem;
+}
+
+.input-group-text {
+  border-right: none;
+}
+
+.form-control {
+  border-left: none;
+}
+
+.form-control:focus {
+  border-left: none;
+  box-shadow: none;
+}
+
+.input-group .form-control:focus + .input-group-text {
+  border-color: #86b7fe;
+}
+
+.btn-outline-secondary {
+  border-left: none;
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .card-body {
+    padding: 1.5rem !important;
+  }
+}

@@ -11,5 +11,14 @@
     "Apply Filter": "بحث",
     "TicketPriority": "الاولوية",
     "TicketCategory": "التصنيف",
-    "Select": "اختر"
+    "Select": "اختر",
+    "USERNAME": "اسم المستخدم",
+    "PASSWORD": "كلمة المرور",
+    "LOGIN_BUTTON": "تسجيل الدخول",
+    "USERNAME_REQUIRED": "برجاء ادخال اسم المستخدم",
+    "PASSWORD_REQUIRED": "برجاء ادخال كلمة المرور",
+    "LOGIN_NOTE":"ادخل بيانات الدخول للمتابعة",
+    "ENTER_PASSWORD": "ادخل كلمة المرور",
+    "ENTER_USERNAME": "ادخل اسم المستخدم",
+    "SignOut": "تسجيل الخروج"
 }

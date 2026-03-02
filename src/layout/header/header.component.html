@@ -3,7 +3,7 @@
     <!-- Logo/Brand -->
     <a class="navbar-brand d-flex align-items-center" href="/">
       <i class="bi bi-shield-check me-2"></i>
-      <span class="fw-bold">Ticketing Portal</span>
+      <span class="fw-bold">{{'APP_TITLE' | translate}}</span>
     </a>
 
     <!-- Mobile toggle button -->
@@ -20,6 +20,7 @@
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" [class.show]="!isMenuCollapsed" id="navbarNav">
       <!-- Left navigation -->
+    @if(userId){
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" routerLink="/" routerLinkActive="active">
@@ -28,7 +29,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" routerLink="/tickets" routerLinkActive="active">
+          <a class="nav-link d-flex align-items-center" [routerLink]="'/'+ currentLang +'/tickets'" routerLinkActive="active">
             <i class="bi bi-ticket-detailed me-1"></i>
             Tickets
           </a>
@@ -46,11 +47,12 @@
           </a>
         </li>
       </ul>
+    }
 
       <!-- Right navigation -->
       <ul class="navbar-nav">
         <!-- Notifications -->
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-bell"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -66,28 +68,29 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">View all notifications</a></li>
           </ul>
-        </li>
+        </li> -->
 
         <!-- User menu -->
+         @if(userId){
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-circle me-1"></i>
-            Admin User
+            {{ userFullName }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#">
               <i class="bi bi-person me-2"></i>Profile
             </a></li>
-            <li><a class="dropdown-item" href="#">
+            <!-- <li><a class="dropdown-item" href="#">
               <i class="bi bi-gear me-2"></i>Settings
-            </a></li>
+            </a></li> -->
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">
-              <i class="bi bi-box-arrow-right me-2"></i>Logout
-            </a></li>
+              <li (click)="SignOut()"><a class="dropdown-item" href="#">
+                <i class="bi bi-box-arrow-right me-2"></i> {{'SignOut' | translate}}
+              </a></li>   
           </ul>
         </li>
-
+      }
         <!-- Language Switcher -->
         <li class="nav-item">
           <app-language-switcher></app-language-switcher>
