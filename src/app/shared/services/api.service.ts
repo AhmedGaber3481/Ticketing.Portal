@@ -44,4 +44,19 @@ export class ApiService {
 
     return this.http.post<T>(url, body, options);
   }
+
+  postForm<T>(endpoint: string, body: FormData, params?: HttpParams, baseUrl?: string): Observable<T> {
+    const url = `${baseUrl ?? this.baseUrl}${endpoint}`;
+    
+    let _headers = new HttpHeaders({
+      'Accept-Language': this.translationService.getCurrentCulture()
+    });
+    const options = {
+      headers: _headers,
+      params: params,
+      withCredentials: true
+    };
+
+    return this.http.post<T>(url, body, options);
+  }
 }

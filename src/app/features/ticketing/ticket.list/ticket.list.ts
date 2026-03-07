@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { LookupService, LOOKUP_TYPES, LookupItem } from '../../../shared/services/lookup.service';
 import { ApiResponse } from '../../../shared/models/api.response';
 import { AuthService } from '../../user.managment/services/auth.service';
+import { TranslationService } from '../../../shared/services/translation.service';
 
 @Component({
   selector: 'app-ticket.list',
@@ -40,9 +41,10 @@ export class TicketList implements OnInit {
   ticketCategories: LookupItem[] = [];
 
    constructor(private apiService: ApiService
-    , private router: Router
-    , private lookupService: LookupService
-    , private authService:  AuthService) {
+    ,private router: Router
+    ,private lookupService: LookupService
+    ,private authService:  AuthService
+    ,private translationService: TranslationService) {
       console.log('TicketList component initialized');
   }
 
@@ -90,8 +92,7 @@ export class TicketList implements OnInit {
   }
 
   loadTickets(pageIndex: number) {
-
-  var params = new HttpParams()
+   var params = new HttpParams()
   .set('PageNumber', pageIndex)
   .set('PageSize', this.pageSize)
   .set('SortBy', this.sortKey || '')
@@ -103,7 +104,7 @@ export class TicketList implements OnInit {
   .set('SearchValue', this.filterForm.value.search || '');
 
    console.log("Loading tickets for page:", pageIndex, "with page size:", this.pageSize);
-   this.apiService.get('/Ticketing/GetTickets', params)
+   this.apiService.get('/api/Ticketing/GetTickets', params)
     .subscribe({
       next: (response: any) => {
         console.log('Tickets loaded:', response.data.items);
@@ -141,5 +142,9 @@ export class TicketList implements OnInit {
       this.sortDirection = 'asc';
     }
     this.loadTickets(1);
+  }
+  newTicket(){
+    const lang = this.translationService.language();
+    this.router.navigate(["/", lang, "newticket"]);
   }
 }

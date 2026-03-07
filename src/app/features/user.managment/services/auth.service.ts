@@ -19,23 +19,23 @@ export class AuthService{
     }
 
     SignIn(userLogin: UserLogin) : Observable<ApiResponse<LoginResult>>{
-        return this.apiService.post<ApiResponse<LoginResult>>("/api/account/SignIn", userLogin, undefined, environment.BaseAuthApiURL)
+        return this.apiService.post<ApiResponse<LoginResult>>("/api/Account/SignIn", userLogin, undefined, environment.BaseAuthApiURL)
         .pipe(tap((res: ApiResponse<LoginResult>) => {
             this.authStatus.set(res.data && res.data.loginSuccess ?
                 "Authenticated": "NotAuthenticated"
             );
-            this.userSubject.next({userFullName: res.data.userFullName, userId: res.data.userId});
+            this.userSubject.next(res.data);
         }));
     }
     SignOut(){
-        return this.apiService.get<ApiResponse<boolean>>("/api/account/SignOut", undefined, environment.BaseAuthApiURL)
+        return this.apiService.get<ApiResponse<boolean>>("/api/Account/SignOut", undefined, environment.BaseAuthApiURL)
          .pipe(tap((res: any) => {
             this.authStatus.set( "NotAuthenticated");
             this.userSubject.next(null);
         }));
     }
     UserIsAuthenticated() : Observable<boolean>{
-        return this.apiService.get<ApiResponse<LoggedUser>>("/api/account/GetLoggedUser", undefined, environment.BaseAuthApiURL)
+        return this.apiService.get<ApiResponse<LoggedUser>>("/api/Account/GetLoggedUser", undefined, environment.BaseAuthApiURL)
         .pipe(map((res: any) => {
             this.authStatus.set(
                 !!res.data?.userId ? 'Authenticated' : 'NotAuthenticated'
@@ -47,7 +47,7 @@ export class AuthService{
     
     private Initialize(){
         //Get logged user data
-        this.apiService.get<ApiResponse<LoggedUser>>("/api/account/GetLoggedUser", undefined, environment.BaseAuthApiURL).subscribe({
+        this.apiService.get<ApiResponse<LoggedUser>>("/api/Account/GetLoggedUser", undefined, environment.BaseAuthApiURL).subscribe({
             next: (response: ApiResponse<LoggedUser>) => {
                 if(response){
                     if(response.data?.userId){
@@ -67,5 +67,8 @@ export class AuthService{
     }
     IsAuthenticated(){
         return this.authStatus() === "Authenticated";
+    }
+    getCurrentUser(): LoggedUser | null{
+        return this.userSubject.value;
     }
 }

@@ -9,61 +9,59 @@
     <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
       <!-- Title -->
       <div class="mb-3">
-        <label for="title" class="form-label">
+        <label for="Title" class="form-label">
           Title <span class="text-danger">*</span>
         </label>
         <input
           type="text"
           class="form-control"
-          [class.is-invalid]="isFieldInvalid('title')"
-          id="title"
-          formControlName="title"
+          [class.is-invalid]="isFieldInvalid('Title')"
+          id="Title"
+          formControlName="Title"
           placeholder="Enter ticket title"
         />
-        <div *ngIf="isFieldInvalid('title')" class="invalid-feedback">
-          {{ getErrorMessage('title') }}
+        <div *ngIf="isFieldInvalid('Title')" class="invalid-feedback">
+          {{ getErrorMessage('Title') }}
         </div>
       </div>
 
       <!-- Ticket Type and Category - Side by Side -->
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="type" class="form-label">
+          <label for="Type" class="form-label">
             Ticket Type <span class="text-danger">*</span>
           </label>
           <select
             class="form-select"
-            [class.is-invalid]="isFieldInvalid('type')"
-            id="type"
-            formControlName="type"
-          >
+            [class.is-invalid]="isFieldInvalid('Type')"
+            id="Type"
+            formControlName="Type">
             <option value="">Select type...</option>
-            <option *ngFor="let option of ticketTypes" [value]="option.value">
-              {{ option.label }}
+            <option *ngFor="let option of ticketTypes" [value]="option.code">
+              {{ option.name }}
             </option>
           </select>
-          <div *ngIf="isFieldInvalid('type')" class="invalid-feedback">
-            {{ getErrorMessage('type') }}
+          <div *ngIf="isFieldInvalid('Type')" class="invalid-feedback">
+            {{ getErrorMessage('Type') }}
           </div>
         </div>
 
         <div class="col-md-6">
-          <label for="category" class="form-label">
+          <label for="Category" class="form-label">
             Ticket Category <span class="text-danger">*</span>
           </label>
           <select
             class="form-select"
-            [class.is-invalid]="isFieldInvalid('category')"
-            id="category"
-            formControlName="category"
-          >
-            <option value="">Select category...</option>
-            <option *ngFor="let option of ticketCategories" [value]="option.value">
-              {{ option.label }}
+            [class.is-invalid]="isFieldInvalid('Category')"
+            id="Category"
+            formControlName="Category">
+            <option value="">Select Category...</option>
+            <option *ngFor="let option of ticketCategories" [value]="option.code">
+              {{ option.name }}
             </option>
           </select>
-          <div *ngIf="isFieldInvalid('category')" class="invalid-feedback">
-            {{ getErrorMessage('category') }}
+          <div *ngIf="isFieldInvalid('Category')" class="invalid-feedback">
+            {{ getErrorMessage('Category') }}
           </div>
         </div>
       </div>
@@ -71,67 +69,85 @@
       <!-- Ticket Priority and Status - Side by Side -->
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="priority" class="form-label">
+          <label for="Priority" class="form-label">
             Ticket Priority <span class="text-danger">*</span>
           </label>
           <select
             class="form-select"
-            [class.is-invalid]="isFieldInvalid('priority')"
-            id="priority"
-            formControlName="priority"
-          >
-            <option value="">Select priority...</option>
-            <option *ngFor="let option of ticketPriorities" [value]="option.value">
-              {{ option.label }}
+            [class.is-invalid]="isFieldInvalid('Priority')"
+            id="Priority"
+            formControlName="Priority">
+            <option value="">Select Priority...</option>
+            <option *ngFor="let option of ticketPriorities" [value]="option.code">
+              {{ option.name }}
             </option>
           </select>
-          <div *ngIf="isFieldInvalid('priority')" class="invalid-feedback">
-            {{ getErrorMessage('priority') }}
+          <div *ngIf="isFieldInvalid('Priority')" class="invalid-feedback">
+            {{ getErrorMessage('Priority') }}
           </div>
         </div>
 
         <div class="col-md-6">
-          <label for="status" class="form-label">
+          <label for="Status" class="form-label">
             Ticket Status <span class="text-danger">*</span>
           </label>
           <select
             class="form-select"
-            [class.is-invalid]="isFieldInvalid('status')"
-            id="status"
-            formControlName="status"
-          >
-            <option value="">Select status...</option>
-            <option *ngFor="let option of ticketStatuses" [value]="option.value">
-              {{ option.label }}
+            [class.is-invalid]="isFieldInvalid('Status')"
+            id="Status"
+            formControlName="Status">
+            <option value="">Select Status...</option>
+            <option *ngFor="let option of ticketStatuses" [value]="option.code">
+              {{ option.name }}
             </option>
           </select>
-          <div *ngIf="isFieldInvalid('status')" class="invalid-feedback">
-            {{ getErrorMessage('status') }}
+          <div *ngIf="isFieldInvalid('Status')" class="invalid-feedback">
+            {{ getErrorMessage('Status') }}
           </div>
         </div>
       </div>
 
       <!-- Description -->
       <div class="mb-4">
-        <label for="description" class="form-label">
+        <label for="Description" class="form-label">
           Description <span class="text-danger">*</span>
         </label>
         <textarea
           class="form-control"
-          [class.is-invalid]="isFieldInvalid('description')"
-          id="description"
-          formControlName="description"
+          [class.is-invalid]="isFieldInvalid('Description')"
+          id="Description"
+          formControlName="Description"
           rows="4"
           placeholder="Describe your issue in detail..."
         ></textarea>
-        <div *ngIf="isFieldInvalid('description')" class="invalid-feedback">
-          {{ getErrorMessage('description') }}
+        <div *ngIf="isFieldInvalid('Description')" class="invalid-feedback">
+          {{ getErrorMessage('Description') }}
         </div>
+      </div>
+      <!-- Attachments-->
+      <div>
+        <input type="button" value="add attachment" class="btn btn-primary" (click)="addAttachment()"/>
+
+            <div *ngFor="let item of Attachments; let indx = index" class="input-group mb-3">
+              <input type="file" class="form-control" placeholder="File" 
+              formControlName="File" (change)="onFileChange($event, indx)"/>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div *ngIf="submitting && ticketForm.controls['File'].errors" class="mt-2">
+              <div class="alert alert-danger" *ngIf="ticketForm.controls['File'].errors['required']">
+                File is required
+              </div>
+            </div> -->
       </div>
 
       <!-- Buttons -->
       <div class="d-flex gap-2">
-        <button type="submit" class="btn btn-primary" [disabled]="ticketForm.invalid">
+        <button type="submit" class="btn btn-primary">
           Submit Ticket
         </button>
         <button type="button" class="btn btn-secondary" (click)="onCancel()">
