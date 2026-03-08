@@ -1,4 +1,4 @@
- <div class="row">
+ <!-- <div class="row">
     <div class="col-sm-12 col-md-5">
         <div class="dataTables_info" role="status" aria-live="polite">{{ pagingTitle }}</div>
     </div>
@@ -18,4 +18,52 @@
             </ul>
     </div>
     </div>
-</div>
+</div> -->
+
+<div *ngIf="countPages > 1" class="mt-6 flex justify-end">
+    <nav class="flex items-center gap-1">
+      <!-- Previous Button -->
+      <button
+        (click)="previousPage()"
+        [disabled]="pageIndex === 1"
+        [class]="'inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-colors'"
+        [class.text-gray-400]="'cursor-not-allowed bg-white border border-gray-200'"
+        [class.text-gray-700]="'bg-white border border-gray-300 hover:bg-gray-50'"
+        style="height: 36px">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Previous
+      </button>
+
+      <!-- Page Numbers -->
+      <button
+        *ngFor="let page of displayedPages; let index = index"
+        (click)="goToPage(page)"
+        [class]="'inline-flex items-center justify-center min-w-[36px] px-3 py-2 text-sm font-medium rounded-lg transition-colors'"
+        [class.bg-blue-600]="pageIndex === page"
+        [class.text-white]="pageIndex === page"
+        [class.border-blue-600]="pageIndex === page"
+        [class.text-gray-700]="pageIndex !== page"
+        [class.bg-white]="pageIndex !== page"
+        [class.border-gray-300]="pageIndex !== page"
+        [class.hover:bg-gray-50]="pageIndex !== page"
+        style="height: 36px">
+        {{ page }}
+      </button>
+
+      <!-- Next Button -->
+      <button
+        (click)="nextPage()"
+        [disabled]="pageIndex === countPages"
+        [class]="'inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-colors'"
+        [class.text-gray-400]="'cursor-not-allowed bg-white border border-gray-200'"
+        [class.text-gray-700]="'bg-white border border-gray-300 hover:bg-gray-50'"
+        style="height: 36px">
+        Next
+        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>

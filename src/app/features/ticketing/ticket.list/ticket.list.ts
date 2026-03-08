@@ -14,8 +14,8 @@ import { TranslationService } from '../../../shared/services/translation.service
 @Component({
   selector: 'app-ticket.list',
   imports: [CommonModule, GridComponent, TranslatePipe, ReactiveFormsModule],
-  templateUrl: './ticket.list.html',
-  styleUrl: './ticket.list.scss'
+  templateUrl: './ticket.list.html'
+  //styleUrl: './ticket.list.scss'
 })
 export class TicketList implements OnInit {
   pageSize: number = 10;
@@ -121,9 +121,9 @@ export class TicketList implements OnInit {
     });
   }
 
-  editTicket(row: any) {
-    this.router.navigate(['/request'], { queryParams: { Id: row.id } });
-  }
+  // editTicket(row: any) {
+  //   this.router.navigate(['/request'], { queryParams: { Id: row.id } });
+  // }
 
   getSortSymbol(key: string): string {
     if(this.sortKey !== key) return '⇅';
@@ -147,4 +147,30 @@ export class TicketList implements OnInit {
     const lang = this.translationService.language();
     this.router.navigate(["/", lang, "newticket"]);
   }
+
+  onEdit(ticketId: any){
+    const lang = this.translationService.language();
+    this.router.navigate(["/", lang, "ticket", ticketId]);
+  }
+  onDelete(ticketId: any){
+    
+  }
+
+  //  getStatusBadgeClass(status: 'New' | 'Pending' | 'Closed'): string {
+  //     const styles = {
+  //       New: 'bg-green-100 text-green-800 border-green-200',
+  //       Pending: 'bg-orange-100 text-orange-800 border-orange-200',
+  //       Closed: 'bg-gray-100 text-gray-800 border-gray-200',
+  //     };
+  //     return `inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${styles[status]}`;
+  //   }
+  
+  //   getPriorityBadgeClass(priority: string): string {
+  //     const styles = {
+  //       High: 'bg-red-100 text-red-800 border-red-200',
+  //       Medium: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+  //       Low: 'bg-blue-100 text-blue-800 border-blue-200',
+  //     };
+  //     return `inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${styles[priority]}`;
+  //   }
 }

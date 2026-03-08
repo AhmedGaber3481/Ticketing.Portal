@@ -8,20 +8,30 @@
 
     <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
       <!-- Title -->
-      <div class="mb-3">
-        <label for="Title" class="form-label">
-          Title <span class="text-danger">*</span>
-        </label>
-        <input
-          type="text"
-          class="form-control"
-          [class.is-invalid]="isFieldInvalid('Title')"
-          id="Title"
-          formControlName="Title"
-          placeholder="Enter ticket title"
-        />
-        <div *ngIf="isFieldInvalid('Title')" class="invalid-feedback">
-          {{ getErrorMessage('Title') }}
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="Title" class="form-label">
+            Title <span class="text-danger">*</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-invalid]="isFieldInvalid('Title')"
+            id="Title"
+            formControlName="Title"
+            placeholder="Enter ticket title"/>
+          <div *ngIf="isFieldInvalid('Title')" class="invalid-feedback">
+            {{ getErrorMessage('Title') }}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="CreatedAt" class="form-label">
+            {{'TicketCreatedAt' | translate}} <span class="text-danger">*</span>
+          </label>
+          <input type="datetime" formControlName="CreatedAt"/>
+          <div *ngIf="isFieldInvalid('CreatedAt')" class="invalid-feedback">
+            {{ getErrorMessage('CreatedAt') }}
+          </div>
         </div>
       </div>
 

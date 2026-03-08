@@ -6,16 +6,17 @@ import { takeUntil } from 'rxjs/operators';
 import { LOOKUP_TYPES, LookupItem, LookupService } from '../../../shared/services/lookup.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslationService } from '../../../shared/services/translation.service';
-import { right } from '@popperjs/core';
 import { TicketingService } from '../services/ticket.service';
 import { ApiResponse } from '../../../shared/models/api.response';
 import { AuthService } from '../../user.managment/services/auth.service';
+import { TicketModel } from '../models/ticket.model';
+import { TranslatePipe } from '../../../shared/services/translate.pipe';
 
 @Component({
   selector: 'app-ticket-creation-form',
   templateUrl: './ticket.form.html',
   styleUrls: ['./ticket.form.scss'],
-  imports:[ReactiveFormsModule, CommonModule]
+  imports:[ReactiveFormsModule, CommonModule, TranslatePipe]
 })
 export class TicketForm implements OnInit, OnDestroy {
   ticketForm!: FormGroup;
@@ -29,7 +30,7 @@ export class TicketForm implements OnInit, OnDestroy {
   ticketStatuses: LookupItem[] = [];
   ticketPriorities: LookupItem[] = [];
   ticketCategories: LookupItem[] = [];
-  TicketId =0;
+  TicketId = 0;
   File: any;
   Attachments: any[] = [];
 
@@ -47,13 +48,16 @@ export class TicketForm implements OnInit, OnDestroy {
     Category: 'Ticket Category',
     Priority: 'Ticket Priority',
     Status: 'Ticket Status',
-    Description: 'Description'
+    Description: 'Description',
+    CreatedAt: 'CreatedAt'
   };
 
   ngOnInit(): void {
-    const ticketId =this.route.snapshot.queryParamMap.get("TicketId");
+    const ticketId =this.route.snapshot.paramMap.get("TicketId");
+    console.log("TicketId", ticketId)
     if(ticketId){
       this.TicketId = parseInt(ticketId);
+      this.getTicket();
     }
     var user = this.authService.getCurrentUser();
     console.log("Current user", user);
@@ -67,6 +71,30 @@ export class TicketForm implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  getTicket(){
+    this.ticketingService.GetTicket(this.TicketId)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+        next: (res: ApiResponse<TicketModel>)=>{
+        console.log(res, "Ticket data");
+        if(res.data){
+          this.ticketForm.controls["Title"].setValue(res.data.title);
+          this.ticketForm.controls["Type"].setValue(res.data.type);
+          this.ticketForm.controls["Category"].setValue(res.data.category);
+          this.ticketForm.controls["Status"].setValue(res.data.status);
+          this.ticketForm.controls["Priority"].setValue(res.data.priority);
+          this.ticketForm.controls["Description"].setValue(res.data.description);
+        }
+        else{
+          alert("error while get ticket");
+        }
+      },
+      error: (errors: any)=>{
+        console.log(errors);
+        alert("error while get ticket");
+      }});
+  }
+
   private initializeForm(): void {
     this.ticketForm = this.fb.group({
       Title: ['', [Validators.required]],
@@ -74,7 +102,8 @@ export class TicketForm implements OnInit, OnDestroy {
       Category: ['', [Validators.required]],
       Priority: ['', [Validators.required]],
       Status: ['', [Validators.required]],
-      Description: ['', [Validators.required]]
+      Description: ['', [Validators.required]],
+      CreatedAt: ['', [Validators.required]]
     });
   }
 
@@ -112,6 +141,8 @@ export class TicketForm implements OnInit, OnDestroy {
   onCancel(): void {
     this.ticketForm.reset();
     this.submitted = false;
+    const lang = this.translationService.language();
+    this.router.navigate(["/", lang, "tickets"]);
   }
 
   private markFormAsTouched(): void {
@@ -120,14 +151,6 @@ export class TicketForm implements OnInit, OnDestroy {
       control?.markAsTouched();
     });
   }
-
-  // Helper methods for template
-  // get title() { return this.ticketForm.get('title'); }
-  // get type() { return this.ticketForm.get('type'); }
-  // get category() { return this.ticketForm.get('category'); }
-  // get priority() { return this.ticketForm.get('priority'); }
-  // get status() { return this.ticketForm.get('status'); }
-  // get description() { return this.ticketForm.get('description'); }
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.ticketForm.get(fieldName);

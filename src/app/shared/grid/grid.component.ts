@@ -42,7 +42,7 @@ export class GridComponent implements OnChanges {
     }
   }
 
-  getPage(index: number){
+  goToPage(index: number){
     this.pageIndex = index;
     this.renderPage();
   }

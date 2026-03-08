@@ -22,5 +22,8 @@
     "ENTER_USERNAME": "Enter your username",
     "SignOut": "Sign Out",
     "Locked_User": "User is locked out.",
-    "Invalid_Credentials": "Invalid username or password."
+    "Invalid_Credentials": "Invalid username or password.",
+    "TicketCreatedAt": "Request At",
+    "Next": "Next",
+    "Previous": "Previous"
 }
