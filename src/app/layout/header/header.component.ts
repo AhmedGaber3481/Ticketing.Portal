@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { TranslationService } from '../../app/shared/services/translation.service';
-import { LanguageSwitcher } from '../../app/shared/language-switcher/language-switcher';
-import { AuthService } from '../../app/features/user.managment/services/auth.service';
-import { TranslatePipe } from '../../app/shared/services/translate.pipe';
+import { TranslationService } from '../../shared/services/translation.service';
+import { LanguageSwitcher } from '../../shared/language-switcher/language-switcher';
+import { AuthService } from '../../features/user.managment/services/auth.service';
+import { TranslatePipe } from '../../shared/services/translate.pipe';
 import { Observable, Subject, take, takeUntil } from 'rxjs';
 
 @Component({

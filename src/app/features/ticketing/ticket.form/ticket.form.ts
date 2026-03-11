@@ -9,8 +9,9 @@ import { TranslationService } from '../../../shared/services/translation.service
 import { TicketingService } from '../services/ticket.service';
 import { ApiResponse } from '../../../shared/models/api.response';
 import { AuthService } from '../../user.managment/services/auth.service';
-import { TicketModel } from '../models/ticket.model';
+import { TicketAttachment, TicketModel } from '../models/ticket.model';
 import { TranslatePipe } from '../../../shared/services/translate.pipe';
+import { environment } from '../../../../environments/environments';
 
 @Component({
   selector: 'app-ticket-creation-form',
@@ -33,6 +34,7 @@ export class TicketForm implements OnInit, OnDestroy {
   TicketId = 0;
   File: any;
   Attachments: any[] = [];
+  attachments: TicketAttachment[] = [];
 
   constructor(private fb: FormBuilder
   ,private lookupService: LookupService
@@ -84,6 +86,7 @@ export class TicketForm implements OnInit, OnDestroy {
           this.ticketForm.controls["Status"].setValue(res.data.status);
           this.ticketForm.controls["Priority"].setValue(res.data.priority);
           this.ticketForm.controls["Description"].setValue(res.data.description);
+          this.attachments = res.data.attachments;
         }
         else{
           alert("error while get ticket");
@@ -223,6 +226,12 @@ export class TicketForm implements OnInit, OnDestroy {
         formData.append('Files', this.Attachments[i].File);
       }
     }
+    if(this.attachments && this.attachments.length > 0){
+      for(let i = 0; i < this.attachments.length; i++){
+        if(this.attachments[i].attachmentId > 0)
+          formData.append('AttachmentSerials', this.attachments[i].attachmentId.toString());
+      }
+    }
     return formData;
   }
   onFileChange(event: any, index: number) {
@@ -231,5 +240,23 @@ export class TicketForm implements OnInit, OnDestroy {
 
   addAttachment() {
     this.Attachments.push({});
+  }
+
+  deleteSavedAttachment(attachmentId: number){
+    if(attachmentId > 0){
+      var index = this.attachments.findIndex(x=> x.attachmentId == attachmentId);
+      if(index >=0){
+        this.attachments.splice(index, 1);
+      }
+    }
+  }
+  deleteAttachment(index: number){
+    if(index >=0){
+      this.Attachments.splice(index, 1);
+    }
+  }
+
+  getAttachmentURL(URL: string){
+    return URL ? `${environment.AttachmentBaseUrl}${URL}` : "";
   }
 }

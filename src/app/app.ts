@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 //import { HeaderComponent, FooterComponent } from '../layout';
 import { TranslationService } from './shared/services/translation.service';
-import { FooterComponent, HeaderComponent } from '../layout';
+import { FooterComponent, HeaderComponent } from './layout';
 import { AuthService } from './features/user.managment/services/auth.service';
 import { Subject, take, takeUntil } from 'rxjs';
 

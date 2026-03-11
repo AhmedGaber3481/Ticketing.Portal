@@ -28,7 +28,12 @@
           <label for="CreatedAt" class="form-label">
             {{'TicketCreatedAt' | translate}} <span class="text-danger">*</span>
           </label>
-          <input type="datetime" formControlName="CreatedAt"/>
+          <input
+            type="datetime-local"
+            class="form-control"
+            [class.is-invalid]="isFieldInvalid('CreatedAt')"
+            id="CreatedAt"
+            formControlName="CreatedAt"/>
           <div *ngIf="isFieldInvalid('CreatedAt')" class="invalid-feedback">
             {{ getErrorMessage('CreatedAt') }}
           </div>
@@ -46,7 +51,7 @@
             [class.is-invalid]="isFieldInvalid('Type')"
             id="Type"
             formControlName="Type">
-            <option value="">Select type...</option>
+            <option value="">{{ 'SelectPlaceholder' | translate }}</option>
             <option *ngFor="let option of ticketTypes" [value]="option.code">
               {{ option.name }}
             </option>
@@ -65,7 +70,7 @@
             [class.is-invalid]="isFieldInvalid('Category')"
             id="Category"
             formControlName="Category">
-            <option value="">Select Category...</option>
+            <option value="">{{ 'SelectPlaceholder' | translate }}</option>
             <option *ngFor="let option of ticketCategories" [value]="option.code">
               {{ option.name }}
             </option>
@@ -87,7 +92,7 @@
             [class.is-invalid]="isFieldInvalid('Priority')"
             id="Priority"
             formControlName="Priority">
-            <option value="">Select Priority...</option>
+            <option value="">{{ 'SelectPlaceholder' | translate }}</option>
             <option *ngFor="let option of ticketPriorities" [value]="option.code">
               {{ option.name }}
             </option>
@@ -106,7 +111,7 @@
             [class.is-invalid]="isFieldInvalid('Status')"
             id="Status"
             formControlName="Status">
-            <option value="">Select Status...</option>
+            <option value="">{{ 'SelectPlaceholder' | translate }}</option>
             <option *ngFor="let option of ticketStatuses" [value]="option.code">
               {{ option.name }}
             </option>
@@ -127,26 +132,37 @@
           [class.is-invalid]="isFieldInvalid('Description')"
           id="Description"
           formControlName="Description"
-          rows="4"
-          placeholder="Describe your issue in detail..."
-        ></textarea>
+          rows="4"></textarea>
         <div *ngIf="isFieldInvalid('Description')" class="invalid-feedback">
           {{ getErrorMessage('Description') }}
         </div>
       </div>
       <!-- Attachments-->
       <div>
+
         <input type="button" value="add attachment" class="btn btn-primary" (click)="addAttachment()"/>
 
-            <div *ngFor="let item of Attachments; let indx = index" class="input-group mb-3">
-              <input type="file" class="form-control" placeholder="File" 
-              formControlName="File" (change)="onFileChange($event, indx)"/>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-envelope"></span>
-                </div>
+        @if(attachments && attachments.length > 0){
+          @for(attachment of attachments; track attachment.attachmentId){
+            <div class="input-group mb-3 bg-white divide-y divide-gray-200">
+              <span class="input-group-text">{{ attachment.attachmentName }}</span>
+              <a [href]="getAttachmentURL(attachment.attachmentUrl)" target="_blank" class="btn btn-outline-primary">View</a>
+              <button (click)="deleteSavedAttachment(attachment.attachmentId)">delete</button>
+            </div>
+          }
+        }
+        @for(item of Attachments; track $index){
+          <div class="input-group mb-3">
+            <input type="file" class="form-control" placeholder="File" 
+            formControlName="File" (change)="onFileChange($event, $index)"/>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
               </div>
             </div>
+            <button (click)="deleteAttachment($index)">delete</button>
+          </div>
+        }
 
             <!-- <div *ngIf="submitting && ticketForm.controls['File'].errors" class="mt-2">
               <div class="alert alert-danger" *ngIf="ticketForm.controls['File'].errors['required']">

@@ -25,5 +25,6 @@
     "Invalid_Credentials": "Invalid username or password.",
     "TicketCreatedAt": "Request At",
     "Next": "Next",
-    "Previous": "Previous"
+    "Previous": "Previous",
+    "SelectPlaceholder": "Select"
 }

@@ -8,4 +8,10 @@ export interface TicketModel{
     createdAt: string;
     subCategory: string;
     files: any[];
+    attachments: TicketAttachment[];
+}
+export interface TicketAttachment{
+    attachmentId: number;
+    attachmentName: string;
+    attachmentUrl: string;
 }
