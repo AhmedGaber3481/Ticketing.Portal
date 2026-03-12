@@ -26,5 +26,6 @@
     "TicketCreatedAt": "Request At",
     "Next": "Next",
     "Previous": "Previous",
-    "SelectPlaceholder": "Select"
+    "SelectPlaceholder": "Select",
+    "AddAttachment": "Add Attachment"
 }

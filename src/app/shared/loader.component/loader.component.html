@@ -1,0 +1,15 @@
+<div class="flex flex-col items-center justify-center gap-3" [ngClass]="className">
+    <div
+    [ngClass]="[
+        sizeClasses[size],
+        borderWidthClasses[size],
+        variantClasses[variant],
+        'rounded-full',
+        'animate-spin'
+    ]"
+    role="status"
+    aria-label="Loading"></div>
+    @if(text){
+        <p class="text-sm text-gray-600">{{ text }}</p>
+    }
+</div>

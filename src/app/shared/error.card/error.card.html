@@ -1,0 +1,27 @@
+<div class="bg-white rounded-lg shadow-md border border-red-200 overflow-hidden transition-all hover:shadow-lg">
+    <div class="p-6">
+    <div class="flex items-start gap-4">
+        <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600">
+        <!-- Simple icon placeholder compatible with Angular -->
+        <span class="text-2xl font-bold">!</span>
+        </div>
+        <div class="flex-1 min-w-0">
+        <div class="flex items-baseline gap-3 mb-2">
+            <h2 class="text-4xl font-bold text-red-600">{{ error.code }}</h2>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">
+            {{ error.title }}
+        </h3>
+        <p class="text-gray-600 mb-4">
+            {{ error.message }}
+        </p>
+        <button
+            type="button"
+            (click)="onActionClick()"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+            {{ error.actionText }}
+        </button>
+        </div>
+    </div>
+    </div>
+</div>

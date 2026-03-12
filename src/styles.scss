@@ -1,6 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@use "./app/shared/error.card/error.card.scss";
 
 @import "assets/styles/dataTables.bootstrap4.min.css";
+
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 
 // RTL/LTR Direction Support
 [dir="rtl"] {

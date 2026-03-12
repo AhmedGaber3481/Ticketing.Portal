@@ -46,8 +46,11 @@
             </form>
         </div>
 
+  @if(isLoading){
+    <app-loader [size]="'medium'" [variant]="'primary'" [text]="'Loading...'" className="mt-4"></app-loader>
+  }
+  @else{
   <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
-    <!-- Desktop and Tablet View -->
     <div class="overflow-x-auto">
       <table class="w-full">
         <thead class="bg-gray-50 border-b border-gray-200">
@@ -142,12 +145,11 @@
         </tbody>
       </table>
   </div>
-
-    <!-- Empty State -->
     <div *ngIf="dataSource().length === 0" class="py-12 text-center">
       <p class="text-gray-500 text-sm">No tickets found</p>
     </div>
   </div>
+  }
 
    <app-grid
         (pageLoadEvent)="loadTickets($event)"
@@ -155,83 +157,6 @@
         [totalRows]="totalRows()"
         [countPages]="countPages()">
     </app-grid>
-
-        <!-- <div class="card-body table-responsive p-0">
-            <table class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="ticketList_info">
-                <thead>
-                <tr>
-                    <th>
-                    <span style="display:flex;align-items:center;gap:8px;">
-                       <span>{{ 'Id' | translate }}</span>
-                        <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('id')">
-                            <span class="sort-icon">{{ getSortSymbol('id') }}</span>
-                        </button>
-                        </span>
-                    </th>
-                    <th>
-                        <span style="display:flex;align-items:center;gap:8px;">
-                            <span>{{ 'Title' | translate }}</span>
-                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('title')">
-                                <span class="sort-icon">{{ getSortSymbol('title') }}</span>
-                            </button>
-                        </span>
-                    </th>
-                    <th>
-                        <span style="display:flex;align-items:center;gap:8px;">
-                            <span><span>{{ 'TicketStatus' | translate }}</span></span>
-                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('status')">
-                                <span class="sort-icon">{{ getSortSymbol('status') }}</span>
-                            </button>
-                        </span>
-                    </th>
-                    <th>
-                        <span style="display:flex;align-items:center;gap:8px;">
-                            <span><span>{{ 'Priority' | translate }}</span></span>
-                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('priority')">
-                                <span class="sort-icon">{{ getSortSymbol('priority') }}</span>
-                            </button>
-                        </span>
-                    </th>
-                    <th>
-                        <span style="display:flex;align-items:center;gap:8px;">
-                            <span><span>{{ 'Category' | translate }}</span></span>
-                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('category')">
-                                <span class="sort-icon">{{ getSortSymbol('category') }}</span>
-                            </button>
-                        </span>
-                    </th>
-                    <th>
-                        <span style="display:flex;align-items:center;gap:8px;">
-                            <span><span>{{ 'TicketType' | translate }}</span></span>
-                            <button type="button" class="btn btn-link btn-sm p-0" (click)="onSort('type')">
-                                <span class="sort-icon">{{ getSortSymbol('type') }}</span>
-                            </button>
-                        </span>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let row of dataSource(); let i = index" [ngClass]="{ 'odd': i % 2 !== 0, 'even': i % 2 === 0 }">
-                        <td>{{ row.id }}</td>
-                        <td>{{ row.title }}</td>
-                        <td>{{ row.status }}</td>
-                        <td>{{ row.priority }}</td>
-                        <td>{{ row.ticketCategory}}</td>
-                        <td>{{ row.ticketType }}</td>                      
-                    </tr>
-            </tbody>  
-            </table>
-        </div> -->
-        <!-- <div class="card-footer">
-            <app-grid
-                (pageLoadEvent)="loadTickets($event)"
-                [pageSize]="pageSize"
-                [totalRows]="totalRows()"
-                [countPages]="countPages()">
-            </app-grid>
-        </div> -->
     </div>
     </div>
 </div>
-
-

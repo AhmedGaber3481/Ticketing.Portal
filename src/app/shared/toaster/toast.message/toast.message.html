@@ -1,0 +1,32 @@
+<div class="border rounded-lg shadow-lg overflow-hidden mb-3 transition-all duration-300 ease-out"
+    [ngClass]="[
+    isVisible && !isExiting ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0',
+    styles.bg,
+    styles.border
+    ]"
+    style="min-width: 320px; max-width: 420px;margin-top: 30px;">
+    <div class="p-4 flex items-start gap-3">
+    <div
+        class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+        [ngClass]="[styles.iconBg, styles.iconColor]">
+        <span class="text-lg font-bold">
+        {{ styles.iconChar }}
+        </span>
+    </div>
+    <div class="flex-1 min-w-0">
+        <h4 class="font-semibold mb-1" [ngClass]="styles.titleColor">
+        {{ toast.title }}
+        </h4>
+        <p class="text-sm text-gray-600">
+        {{ toast.message }}
+        </p>
+    </div>
+    <button
+        type="button"
+        (click)="handleClose()"
+        class="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors focus:outline-none"
+        aria-label="Close">
+        ×
+    </button>
+    </div>
+</div>

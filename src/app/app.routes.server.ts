@@ -26,6 +26,16 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client
   },
   {
+    path: 'error/:errorCode',
+    renderMode: RenderMode.Prerender,
+     getPrerenderParams: async () => [
+      { errorCode: '500' },
+      { errorCode: '401' },
+      { errorCode: '404' },
+      { errorCode: '400' }
+    ]
+  },
+  {
     path: '**',
     renderMode: RenderMode.Prerender
   }

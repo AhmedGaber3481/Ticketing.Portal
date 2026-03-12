@@ -26,5 +26,6 @@
     "TicketCreatedAt": "تاريخ الطلب",
     "Next": "التالي",
     "Previous": "السابق",
-    "SelectPlaceholder": "اختر"
+    "SelectPlaceholder": "اختر",
+    "AddAttachment": "اضافة ملف"
 }

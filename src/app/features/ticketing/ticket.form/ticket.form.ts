@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { forkJoin, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LOOKUP_TYPES, LookupItem, LookupService } from '../../../shared/services/lookup.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslationService } from '../../../shared/services/translation.service';
 import { TicketingService } from '../services/ticket.service';
 import { ApiResponse } from '../../../shared/models/api.response';
-import { AuthService } from '../../user.managment/services/auth.service';
+//import { AuthService } from '../../user.managment/services/auth.service';
 import { TicketAttachment, TicketModel } from '../models/ticket.model';
 import { TranslatePipe } from '../../../shared/services/translate.pipe';
 import { environment } from '../../../../environments/environments';
+import { ToasterService } from '../../../shared/toaster/toaster.service';
 
 @Component({
   selector: 'app-ticket-creation-form',
@@ -25,8 +26,6 @@ export class TicketForm implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  // Form options
-  // Lookup data
   ticketTypes: LookupItem[] = [];
   ticketStatuses: LookupItem[] = [];
   ticketPriorities: LookupItem[] = [];
@@ -42,7 +41,8 @@ export class TicketForm implements OnInit, OnDestroy {
   ,private route: ActivatedRoute
   ,private translationService: TranslationService
   ,private ticketingService: TicketingService
-  ,private authService: AuthService) {}
+  //,private authService: AuthService
+  ,private toasterService: ToasterService) {}
 
   labels: { [key: string]: string } = {
     Title: 'Title',
@@ -55,14 +55,8 @@ export class TicketForm implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
-    const ticketId =this.route.snapshot.paramMap.get("TicketId");
-    console.log("TicketId", ticketId)
-    if(ticketId){
-      this.TicketId = parseInt(ticketId);
-      this.getTicket();
-    }
-    var user = this.authService.getCurrentUser();
-    console.log("Current user", user);
+    // var user = this.authService.getCurrentUser();
+    // console.log("Current user", user);
 
     this.initializeForm();
     this.loadLookups();
@@ -89,12 +83,12 @@ export class TicketForm implements OnInit, OnDestroy {
           this.attachments = res.data.attachments;
         }
         else{
-          alert("error while get ticket");
+          //alert("error while get ticket");
         }
       },
       error: (errors: any)=>{
         console.log(errors);
-        alert("error while get ticket");
+        //alert("error while get ticket");
       }});
   }
 
@@ -125,13 +119,14 @@ export class TicketForm implements OnInit, OnDestroy {
     this.ticketingService.SaveTicket(formData).subscribe({
       next: (res: ApiResponse<boolean>)=>{
         if(res.data){
-          alert("success");
           this.submitted = false;
           this.ticketForm.reset();
-          this.router.navigate(['/', lang, "tickets"])
+          this.toasterService.addToast('success', "Ticket Saved Successfully","Save Success");
+          this.router.navigate(['/', lang, "tickets"]);
         }
         else{
-          alert("error while submitting the ticket");
+          this.toasterService.addToast('error', "error","error while submitting the ticket");
+          //alert("error while submitting the ticket");
         }
       },
       error: (errors: any)=>{
@@ -176,40 +171,66 @@ export class TicketForm implements OnInit, OnDestroy {
   }
 
   loadLookups() {
-    this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketType).subscribe({
-      next: (response: any) => {
-          console.log('Ticket types loaded:', response.data);
-          this.ticketTypes = response.data;
-      },
-      error: (error: any) => {
-        console.error('Error loading ticket types:', error);
-      }
+    // this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketType).subscribe({
+    //   next: (response: any) => {
+    //       console.log('Ticket types loaded:', response.data);
+    //       this.ticketTypes = response.data;
+    //   },
+    //   error: (error: any) => {
+    //     console.error('Error loading ticket types:', error);
+    //   }
 
-    });
-    this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketStatus).subscribe({
-      next: (response: any) => {
-          this.ticketStatuses = response.data;
-      },
-      error: (error: any) => {
-        console.error('Error loading ticket statuses:', error);
-      }
-    });
-    this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketPriority).subscribe({
-      next: (response: any) => {
-          this.ticketPriorities = response.data;
-      },
-      error: (error: any) => {
-        console.error('Error loading ticket priorities:', error);
-      }
-    });
-    this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketCategory).subscribe({
-      next: (response: any) => {
-          this.ticketCategories = response.data;
-      },
-      error: (error: any) => {
-        console.error('Error loading ticket categories:', error);
-      }
-    });
+    // });
+    // this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketStatus).subscribe({
+    //   next: (response: any) => {
+    //       this.ticketStatuses = response.data;
+    //   },
+    //   error: (error: any) => {
+    //     console.error('Error loading ticket statuses:', error);
+    //   }
+    // });
+    // this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketPriority).subscribe({
+    //   next: (response: any) => {
+    //       this.ticketPriorities = response.data;
+    //   },
+    //   error: (error: any) => {
+    //     console.error('Error loading ticket priorities:', error);
+    //   }
+    // });
+    // this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketCategory).subscribe({
+    //   next: (response: any) => {
+    //       this.ticketCategories = response.data;
+    //   },
+    //   error: (error: any) => {
+    //     console.error('Error loading ticket categories:', error);
+    //   }
+    // });
+    forkJoin({
+          ticketTypes: this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketType),
+          ticketStatuses: this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketStatus),
+          ticketPriorities: this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketPriority),
+          ticketCategories: this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketCategory)
+      }).subscribe({
+        next: (response: any) => {
+            console.log('Ticket lookups loaded:', response);
+            this.ticketTypes = response.ticketTypes.data;
+            this.ticketStatuses = response.ticketStatuses.data;
+            this.ticketPriorities = response.ticketPriorities.data;
+            this.ticketCategories = response.ticketCategories.data;
+            this.getTicketData();
+        },
+        error: (error: any) => {
+          console.error('Error loading ticket lookups:', error);
+        }
+      });
+  }
+  getTicketData(){
+    const ticketId =this.route.snapshot.paramMap.get("TicketId");
+    console.log("TicketId", ticketId)
+    if(ticketId){
+      this.TicketId = parseInt(ticketId);
+      this.getTicket();
+    }
   }
 
   getFormData(){
@@ -240,6 +261,9 @@ export class TicketForm implements OnInit, OnDestroy {
 
   addAttachment() {
     this.Attachments.push({});
+  }
+  canAddAttachment(){
+    return this.Attachments.length  == 0 || !!this.Attachments[this.Attachments.length -1].File;
   }
 
   deleteSavedAttachment(attachmentId: number){

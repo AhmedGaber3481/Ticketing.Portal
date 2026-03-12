@@ -14,6 +14,7 @@ export const routes: Routes = [
             {path: 'ticket/:TicketId', loadComponent: () => import('./features/ticketing/ticket.form/ticket.form').then(m => m.TicketForm)},
         ]
     },
-    {path: ':Lang/login', loadComponent: () => import('./features/user.managment/login/login').then(m => m.LoginFormComponent)}
-    //{ path: '**', loadComponent: () => import('./home/home').then(m => m.Home) }
+    {path: ':Lang/login', loadComponent: () => import('./features/user.managment/login/login').then(m => m.LoginFormComponent)},
+    { path: 'error/:errorCode', loadComponent: () => import('./shared/error.page/error.page').then(m => m.ErrorPage) },
+    { path: '**', loadComponent: () => import('./shared/error.page/error.page').then(m => m.ErrorPage) }
 ];

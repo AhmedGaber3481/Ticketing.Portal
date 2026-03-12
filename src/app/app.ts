@@ -1,14 +1,12 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-//import { HeaderComponent, FooterComponent } from '../layout';
 import { TranslationService } from './shared/services/translation.service';
 import { FooterComponent, HeaderComponent } from './layout';
-import { AuthService } from './features/user.managment/services/auth.service';
-import { Subject, take, takeUntil } from 'rxjs';
+import { ToastNotificationComponent } from './shared/toaster/toast.notification/toast.notification';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastNotificationComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -17,35 +15,4 @@ export class App {
   userId ="";
   
   translationService = inject(TranslationService);
-  //authService = inject(AuthService);
-  
-  // ngOnInit(): void {
-  //   this.authService.userObserver.subscribe({
-  //     next:(res: any)=>{
-  //       this.userId = res?.userId;
-  //     },
-  //     error:(err)=>{
-  //       console.log(err);
-  //     }
-  //    });
-  // }
-  //private destroy$ = new Subject<void>();
-
-  // ngOnInit() {
-  //   this.authService.userObserver
-  //     .pipe(takeUntil(this.destroy$))
-  //     .subscribe({
-  //     next:(res: any)=>{
-  //         console.log(res, "logged user in App");
-  //         this.userId = res?.userId;
-  //     },
-  //     error:(err)=>{
-  //       console.log(err);
-  //     }});
-  // }
-
-  // ngOnDestroy() {
-  //   this.destroy$.next();
-  //   this.destroy$.complete();
-  // }
 }

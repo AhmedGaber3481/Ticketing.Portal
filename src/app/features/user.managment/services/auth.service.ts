@@ -15,7 +15,6 @@ export class AuthService{
     authStatus = signal("IsLoading");
 
     constructor(private apiService: ApiService) {
-        //this.Initialize();
     }
 
     SignIn(userLogin: UserLogin) : Observable<ApiResponse<LoginResult>>{
@@ -45,7 +44,7 @@ export class AuthService{
         }));
     }
     
-    private Initialize(){
+    /*private Initialize(){
         //Get logged user data
         this.apiService.get<ApiResponse<LoggedUser>>("/api/Account/GetLoggedUser", undefined, environment.BaseAuthApiURL).subscribe({
             next: (response: ApiResponse<LoggedUser>) => {
@@ -64,7 +63,7 @@ export class AuthService{
                 this.authStatus.set("Failed");
             }
         })
-    }
+    }*/
     IsAuthenticated(){
         return this.authStatus() === "Authenticated";
     }

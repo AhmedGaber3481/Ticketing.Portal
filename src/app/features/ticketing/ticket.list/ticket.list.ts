@@ -10,10 +10,12 @@ import { LookupService, LOOKUP_TYPES, LookupItem } from '../../../shared/service
 import { ApiResponse } from '../../../shared/models/api.response';
 import { AuthService } from '../../user.managment/services/auth.service';
 import { TranslationService } from '../../../shared/services/translation.service';
+import { forkJoin } from 'rxjs';
+import { LoaderComponent } from '../../../shared/loader.component/loader.component';
 
 @Component({
   selector: 'app-ticket.list',
-  imports: [CommonModule, GridComponent, TranslatePipe, ReactiveFormsModule],
+  imports: [CommonModule, GridComponent, TranslatePipe, ReactiveFormsModule, LoaderComponent],
   templateUrl: './ticket.list.html'
   //styleUrl: './ticket.list.scss'
 })
@@ -24,6 +26,7 @@ export class TicketList implements OnInit {
   countPages = signal(0);
   sortKey?: string;
   sortDirection?: 'asc'|'desc';
+  isLoading = true;
 
   // Filter form
   filterForm: FormGroup = new FormGroup({
@@ -51,11 +54,30 @@ export class TicketList implements OnInit {
   ngOnInit(){
     console.log("user in ticketing list", this.authService.userSubject.value);
     this.loadLookups();
-    this.loadTickets(1);
   }
 
   loadLookups() {
-    this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketType).subscribe({
+    forkJoin({
+      ticketTypes: this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketType),
+      ticketStatuses: this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketStatus),
+      ticketPriorities: this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketPriority),
+      ticketCategories: this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketCategory)
+    }).subscribe({
+      next: (response: any) => {
+          console.log('Ticket lookups loaded:', response);
+          this.ticketTypes = response.ticketTypes.data;
+          this.ticketStatuses = response.ticketStatuses.data;
+          this.ticketPriorities = response.ticketPriorities.data;
+          this.ticketCategories = response.ticketCategories.data;
+
+          this.loadTickets(1);
+      },
+      error: (error: any) => {
+        console.error('Error loading ticket lookups:', error);
+      }
+    });
+
+    /*this.lookupService.get<LookupItem[]>(LOOKUP_TYPES.TicketType).subscribe({
       next: (response: any) => {
          console.log('Ticket types loaded:', response.data);
          this.ticketTypes = response.data;
@@ -88,7 +110,7 @@ export class TicketList implements OnInit {
       error: (error: any) => {
         console.error('Error loading ticket categories:', error);
       }
-    });
+    });*/
   }
 
   loadTickets(pageIndex: number) {
@@ -103,7 +125,8 @@ export class TicketList implements OnInit {
   .set('TicketCategory', this.filterForm.value.ticketCategory || '')
   .set('SearchValue', this.filterForm.value.search || '');
 
-   console.log("Loading tickets for page:", pageIndex, "with page size:", this.pageSize);
+   //console.log("Loading tickets for page:", pageIndex, "with page size:", this.pageSize);
+   this.isLoading = true;
    this.apiService.get('/api/Ticketing/GetTickets', params)
     .subscribe({
       next: (response: any) => {
@@ -112,18 +135,16 @@ export class TicketList implements OnInit {
         
         this.totalRows.set(response.data.totalCount);
         this.countPages.set(Math.ceil(response.data.totalCount / this.pageSize));
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Error loading tickets:', error);
         this.totalRows.set(0);
         this.countPages.set(0);
+        this.isLoading = false;
       }
     });
   }
-
-  // editTicket(row: any) {
-  //   this.router.navigate(['/request'], { queryParams: { Id: row.id } });
-  // }
 
   getSortSymbol(key: string): string {
     if(this.sortKey !== key) return '⇅';

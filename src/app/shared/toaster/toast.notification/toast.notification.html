@@ -1,0 +1,10 @@
+<div class="w-full">
+    <!-- Toast Container - Fixed position -->
+    <div class="fixed top-4 right-4 z-50 flex flex-col items-end max-md:left-4 max-md:right-4">
+    <app-toast-message
+        *ngFor="let toast of toasterService.toasts()"
+        [toast]="toast"
+        (close)="removeToast($event)">
+    </app-toast-message>
+    </div>
+</div>
