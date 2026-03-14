@@ -1,7 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
-import { GridComponent } from '../../../shared/grid/grid.component';
 import { HttpParams } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../../shared/services/translate.pipe';
@@ -12,10 +11,11 @@ import { AuthService } from '../../user.managment/services/auth.service';
 import { TranslationService } from '../../../shared/services/translation.service';
 import { forkJoin } from 'rxjs';
 import { LoaderComponent } from '../../../shared/loader.component/loader.component';
+import { PagingComponent } from '../../../shared/grid/grid.paging.component';
 
 @Component({
   selector: 'app-ticket.list',
-  imports: [CommonModule, GridComponent, TranslatePipe, ReactiveFormsModule, LoaderComponent],
+  imports: [CommonModule, PagingComponent, TranslatePipe, ReactiveFormsModule, LoaderComponent],
   templateUrl: './ticket.list.html'
   //styleUrl: './ticket.list.scss'
 })

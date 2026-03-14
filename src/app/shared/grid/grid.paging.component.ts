@@ -4,11 +4,11 @@ import { TranslationService } from '../services/translation.service';
 import { TranslatePipe } from '../services/translate.pipe';
 
 @Component({
-  selector: 'app-grid',
+  selector: 'app-paging',
   imports: [CommonModule, TranslatePipe],
-  templateUrl: './grid.component.html'
+  templateUrl: './grid.paging.component.html'
 })
-export class GridComponent implements OnChanges {
+export class PagingComponent implements OnChanges {
 
   @Input() pageSize!: number;
   pageIndex: number = 1;

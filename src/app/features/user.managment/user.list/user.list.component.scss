@@ -1,0 +1,16 @@
+/* User List Component Styles */
+.sort-icon {
+  margin-left: 4px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.btn-link {
+  text-decoration: none;
+  color: inherit;
+  
+  &:hover {
+    text-decoration: none;
+    color: #007bff;
+  }
+}
