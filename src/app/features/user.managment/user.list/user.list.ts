@@ -10,14 +10,14 @@ import { ApiResponse } from '../../../shared/models/api.response';
   selector: 'app-user.list',
   imports: [CommonModule, PagingComponent, LoaderComponent],
   templateUrl: './user.list.html',
-  styleUrl: './user.list.component.scss'
+  styleUrl: './user.list.scss'
 })
 export class UserListComponent implements OnInit {
   users: UserListModel[] = [];
   pageIndex = 1;
   pageSize = 10;
   totalCount = 0;
-  sortColumn = 'username';
+  sortColumn = 'UserName';
   sortDirection: 'asc' | 'desc' = 'asc';
   isLoading = true;
 

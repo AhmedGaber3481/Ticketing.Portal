@@ -91,6 +91,94 @@
   }
 }
 
+// Fix for navbar-collapse visibility - Override Bootstrap more aggressively
+.custom-navbar-collapse,
+.navbar-collapse,
+.navbar .navbar-collapse {
+  // Base state - visible by default
+  display: block;
+  height: auto;
+  visibility: visible;
+  opacity: 1;
+  // Override Bootstrap's collapse behavior completely
+  &.collapse {
+    display: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    visibility: hidden !important;
+    
+    &.show {
+      display: block !important;
+      height: auto !important;
+      visibility: visible !important;
+    }
+  }
+  
+  // Ensure it's always visible on larger screens (lg and above)
+  @media (min-width: 992px) {
+    display: block !important;
+    height: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    
+    &.collapse {
+      display: block !important;
+      height: auto !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+  }
+  
+  // For medium screens (md)
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    &.collapse:not(.show) {
+      display: none !important;
+      height: 0 !important;
+      visibility: hidden !important;
+    }
+    
+    &.show {
+      display: block !important;
+      height: auto !important;
+      visibility: visible !important;
+    }
+  }
+  
+  // For small screens (sm and below)
+  @media (max-width: 767.98px) {
+    &.collapse {
+      display: none !important;
+      height: 0 !important;
+      visibility: hidden !important;
+    }
+    
+    &.show {
+      display: block !important;
+      height: auto !important;
+      visibility: visible !important;
+      background-color: rgba(0, 123, 255, 0.95);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-top: 0.5rem;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+  }
+}
+
+// Debug class - force visibility
+.debug-nav-visible {
+  display: block !important;
+  height: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
 // Language switcher integration in navbar
 app-language-switcher {
   .dropdown {

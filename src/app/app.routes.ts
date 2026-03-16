@@ -12,6 +12,7 @@ export const routes: Routes = [
             },
             {path: 'newticket', loadComponent: () => import('./features/ticketing/ticket.form/ticket.form').then(m => m.TicketForm)},
             {path: 'ticket/:TicketId', loadComponent: () => import('./features/ticketing/ticket.form/ticket.form').then(m => m.TicketForm)},
+            {path: 'users', loadComponent: () => import('./features/user.managment/user.list/user.list').then(m => m.UserListComponent)}
         ]
     },
     {path: ':Lang/login', loadComponent: () => import('./features/user.managment/login/login').then(m => m.LoginFormComponent)},

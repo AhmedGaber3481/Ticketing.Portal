@@ -13,12 +13,14 @@
       (click)="toggleMenu()"
       [attr.aria-expanded]="!isMenuCollapsed"
       aria-controls="navbarNav"
-      aria-label="Toggle navigation">
+      aria-label="Toggle navigation"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" [class.show]="!isMenuCollapsed" id="navbarNav">
+    <div class="collapse navbar-collapse custom-navbar-collapse debug-nav-visible" [class.show]="!isMenuCollapsed" id="navbarNav">
       <!-- Left navigation -->
     @if(userId){
       <ul class="navbar-nav me-auto">

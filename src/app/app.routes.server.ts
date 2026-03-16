@@ -36,6 +36,10 @@ export const serverRoutes: ServerRoute[] = [
     ]
   },
   {
+    path: ':Lang/users',
+    renderMode: RenderMode.Client
+  },
+  {
     path: '**',
     renderMode: RenderMode.Prerender
   }

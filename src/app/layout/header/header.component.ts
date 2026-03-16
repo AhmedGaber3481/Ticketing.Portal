@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
     this.authService.userObserver.pipe(takeUntil(this.destroy$)).subscribe({
       next:(res: any)=>{
         if(res){
+          console.log(res);
           this.userFullName = res.userFullName;
           this.userId = res.userId;
         }
