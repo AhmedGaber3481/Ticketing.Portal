@@ -41,7 +41,6 @@ export class TicketForm implements OnInit, OnDestroy {
   ,private route: ActivatedRoute
   ,private translationService: TranslationService
   ,private ticketingService: TicketingService
-  //,private authService: AuthService
   ,private toasterService: ToasterService) {}
 
   labels: { [key: string]: string } = {
@@ -80,6 +79,7 @@ export class TicketForm implements OnInit, OnDestroy {
           this.ticketForm.controls["Status"].setValue(res.data.status);
           this.ticketForm.controls["Priority"].setValue(res.data.priority);
           this.ticketForm.controls["Description"].setValue(res.data.description);
+          this.ticketForm.controls["CreatedAt"].setValue(this.formatDateTime(res.data.createdAt));
           this.attachments = res.data.attachments;
         }
         else{
@@ -168,6 +168,18 @@ export class TicketForm implements OnInit, OnDestroy {
 
   private getFieldLabel(fieldName: string): string {
     return this.labels[fieldName] || fieldName;
+  }
+
+  private formatDateTime(date: string | Date): string {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    //const seconds = String(d.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
   }
 
   loadLookups() {

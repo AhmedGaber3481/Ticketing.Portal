@@ -16,6 +16,6 @@ export const routes: Routes = [
         ]
     },
     {path: ':Lang/login', loadComponent: () => import('./features/user.managment/login/login').then(m => m.LoginFormComponent)},
-    { path: 'error/:errorCode', loadComponent: () => import('./shared/error.page/error.page').then(m => m.ErrorPage) },
+    { path: ':Lang/error/:errorCode', loadComponent: () => import('./shared/error.page/error.page').then(m => m.ErrorPage) },
     { path: '**', loadComponent: () => import('./shared/error.page/error.page').then(m => m.ErrorPage) }
 ];

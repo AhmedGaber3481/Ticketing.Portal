@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslationService } from '../../shared/services/translation.service';
@@ -19,6 +19,8 @@ export class HeaderComponent implements OnInit,OnDestroy {
   userFullName ="";
   userId="";
   private destroy$ = new Subject<void>();
+  isNavCollapsed = signal(true);
+
   constructor(public translationService: TranslationService 
   ,public authService:  AuthService
   ,private route: Router){
@@ -61,4 +63,9 @@ export class HeaderComponent implements OnInit,OnDestroy {
       }
     });
   }
+  
+  handleNavCollapse(): void {
+    this.isNavCollapsed.set(!this.isNavCollapsed());
+  }
 }
+
